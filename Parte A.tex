@@ -1,151 +1,234 @@
 \section{Parte A}
-
-\definecolor{headercolor}{HTML}{C2185B}
-\definecolor{rowcolor}{HTML}{FCE4EC}
-
-\title{Prueba}
-\author{Candelaria Grigera}
-\date{April 2026}
-
-\section{Primer Experiencia}
-
-
-\subsection{Instrumentos y componentes utilizados}
-
+\subsection{Instrumentos Utilizados}
 \begin{itemize}
-    \item Fuente de tensión alterna $12\ V - 50\ Hz$.
-    \item Resistencia de $68\ \Omega$.
-    \item Bobina de 150 vueltas con resistencia desconocida.
+    \item Osciloscopio.
+    \item Fuente de tension en alterna.
+    \item Resistencia de $66,8\ \Omega$.
+    \item Bobina con resistencia e inductancia desconocida.
     \item Multímetros digitales
-    \item Cables banana-banana para el conexionado.
+    \item Capacitor $220 \mu F$
 \end{itemize}
 
 \subsection{Circuito implementado}
+Para esta partre del tabajo utilizamos el circuito RLC en serie que se puede ver en el esquematico de la figura \ref{fig:circuito_rlc}
 
-El circuito implementado para la primera experiencia fue el presentado en la fig. \ref{fig:circuito1}
-
-\begin{figure}[H]
-  \centering
-  \begin{circuitikz}[american, scale=1.0, transform shape]
-  
-    \coordinate (A) at (0, 0);
-    \coordinate (B) at (3, 0);
-    \coordinate (G) at (8, 0);
-    \coordinate (D) at (10, 0);
-    \coordinate (E) at (10, -3);
-    \coordinate (F) at (0, -3);
-   
-    \draw (A) to[R, l=$R$] (B);
-    \draw (B) to[L, l=$L$] (5, 0);
-    \draw (5,0) to[R, l=$r$] (G);
-    \draw (G) to[rmeter, t=A] (D);
-   
-    \draw (E) -- (12,-3);
-    \draw (12,-3) to[sV] (12,0);
-    \node[right=4pt] at (12.5,-1.3) {$12\,\text{V}$};
-    \node[right=4pt] at (12.5,-1.8) {$50\,\text{Hz}$};
-    \draw (12,0) -- (D);
-   
-    \draw (F) -- (E);
-    \draw (A) -- (F);
-   
-    \fill (B) circle (2.5pt);
-    \fill (G) circle (2.5pt);
-   
-    \coordinate (VtL) at ($(A)+(0,1.6)$);
-    \coordinate (VtR) at ($(G)+(0,1.6)$);
-    \draw[dotted] (A) -- (VtL);
-    \draw[dotted] (G) -- (VtR);
-    \draw[dotted] (VtL) -- (VtR);
-    \node[draw, circle, fill=white, inner sep=4pt] at ($(VtL)!0.5!(VtR)$) {V};
-   
-    \coordinate (VRL) at ($(A)+(0,-1.6)$);
-    \coordinate (VRR) at ($(B)+(0,-1.6)$);
-    \draw[dotted] (A) -- (VRL);
-    \draw[dotted] (B) -- (VRR);
-    \draw[dotted] (VRL) -- (VRR);
-    \node[draw, circle, fill=white, inner sep=4pt] at ($(VRL)!0.5!(VRR)$) {$V_R$};
-   
-    \coordinate (VZLL) at ($(B)+(0,-1.6)$);
-    \coordinate (VZLR) at ($(G)+(0,-1.6)$);
-    \draw[dotted] (B) -- (VZLL);
-    \draw[dotted] (G) -- (VZLR);
-    \draw[dotted] (VZLL) -- (VZLR);
-    \node[draw, circle, fill=white, inner sep=4pt] at ($(VZLL)!0.5!(VZLR)$) {$V_{ZL}$};
-   
-    \draw[dashed] (2.5,-0.7) rectangle (8.5,0.7);
-    \node[above] at (5.5,0.7) {$Z_L$};
-
-  \end{circuitikz}
-  \caption{Circuito 1}
-  \label{fig:circuito1}
+\begin{figure}[htbp]
+    \centering
+    \begin{circuitikz}[american, scale=1.2]
+        \draw (0,0)
+        to[vsourcesin, l=$V_S$] (0,2.5)
+        to[R, l=$R$] (2,2.5)
+        to[L, l=$L$] (4,2.5)
+        to[C, l=$C$] (4,0)
+        -- (0,0);
+    \end{circuitikz}
+    \caption{Circuito de análisis RLC serie.}
+    \label{fig:circuito_rlc}
 \end{figure}
 
 \subsection{Objetivos}
 
-Determinar de manera experimental la resistencia interna y la inductancia de la bobina proporcionada por la cátedra.
+El objetivo de esta experiencia fue estudiar experimentalmente el
+comportamiento de un circuito RLC serie al modificar la frecuencia de la
+fuente de alimentación.
 
-\subsubsection{Datos Obtenidos}
+En particular, se buscó determinar la frecuencia de resonancia del circuito
+a partir del máximo valor de tensión medido sobre la resistencia, calcular la
+inductancia de la bobina a partir de dicha frecuencia y del valor conocido del
+capacitor, y obtener la curva de corriente en función de la frecuencia.
 
-Los datos que se obtuvieron a partir de la medición fueron los presentados en la tabla \ref{tab:mediciones1}
+Además, se determinaron las frecuencias de corte o de media potencia, el ancho
+de banda y el factor de calidad del circuito resonante.
+
+\subsection{Datos obtenidos}
+
+Para cada frecuencia de la fuente se midió la tensión eficaz sobre la
+resistencia de $66{,}8\ \Omega$. Debido a que todos los elementos se encuentran
+conectados en serie, la corriente que circula por el circuito se obtuvo
+mediante la ley de Ohm:
+
+\begin{equation}
+    I=\frac{V_R}{R}.
+    \label{eq:corriente_parte_a}
+\end{equation}
+
+Como la tensión fue medida en milivoltios y la resistencia se encuentra
+expresada en ohmios, la corriente calculada mediante la ecuación
+\ref{eq:corriente_parte_a}.
+
+Los valores obtenidos se presentan en la Tabla
+\ref{tab:mediciones_rlc_serie}.
 
 \begin{table}[H]
-  \centering
-  \renewcommand{\arraystretch}{1.4}
-  \setlength{\arrayrulewidth}{0.5pt}
-  \resizebox{\columnwidth}{!}{%
-  \begin{tabular}{|
-    >{\centering\arraybackslash}m{1.5cm}|
-    >{\centering\arraybackslash}m{1.5cm}|
-    >{\centering\arraybackslash}m{1.5cm}|
-    >{\centering\arraybackslash}m{1.8cm}|
-    >{\centering\arraybackslash}m{1.8cm}|
-    >{\centering\arraybackslash}m{1.8cm}|
-  }
-  \hline
-  \rowcolor{headercolor}
-  \textcolor{white}{\textbf{$I$ [mA]}} &
-  \textcolor{white}{\textbf{$V_f$ [V]}} &
-  \textcolor{white}{\textbf{$V_R$ [V]}} &
-  \textcolor{white}{\textbf{$V_{ZL}$ [V]}} &
-  \textcolor{white}{\textbf{$R$ [$\Omega$]}} &
-  \textcolor{white}{\textbf{$r$ [$\Omega$]}} &
-  \hline
-  \rowcolor{rowcolor}
-  107 & 12,1 & 5,1 & 8,4 & 52 & 48 \\
-  \hline
-  \end{tabular}}
-  \caption{Mediciones experiencia 1}
-  \label{tab:mediciones1}
+    \centering
+    \renewcommand{\arraystretch}{1.25}
+    \setlength{\arrayrulewidth}{0.5pt}
+    \begin{tabular}{|
+        >{\centering\arraybackslash}m{2.5cm}|
+        >{\centering\arraybackslash}m{2.8cm}|
+        >{\centering\arraybackslash}m{2.5cm}|}
+        \hline
+        \rowcolor{headercolor}
+        \textcolor{white}{\textbf{$f$ [kHz]}} &
+        \textcolor{white}{\textbf{$V_R$ [mV]}} &
+        \textcolor{white}{\textbf{$I$ [mA]}} \\
+        \hline
+        \rowcolor{rowcolor}
+        0,50 & 28,0 & 0,42 \\
+        \hline
+        0,52 & 25,6 & 0,38 \\
+        \hline
+        \rowcolor{rowcolor}
+        1,00 & 64,0 & 0,96 \\
+        \hline
+        1,70 & 100,0 & 1,50 \\
+        \hline
+        \rowcolor{rowcolor}
+        2,10 & 124,0 & 1,86 \\
+        \hline
+        2,70 & 160,0 & 2,40 \\
+        \hline
+        \rowcolor{rowcolor}
+        3,20 & 196,0 & 2,93 \\
+        \hline
+        3,77 & 248,0 & 3,71 \\
+        \hline
+        \rowcolor{rowcolor}
+        5,70 & 350,0 & 5,24 \\
+        \hline
+        7,70 & 268,0 & 4,01 \\
+        \hline
+        \rowcolor{rowcolor}
+        8,00 & 248,0 & 3,71 \\
+        \hline
+        16,30 & 106,0 & 1,59 \\
+        \hline
+        \rowcolor{rowcolor}
+        17,50 & 95,0 & 1,42 \\
+        \hline
+        23,00 & 72,0 & 1,08 \\
+        \hline
+        \rowcolor{rowcolor}
+        31,30 & 52,0 & 0,78 \\
+        \hline
+        42,00 & 40,4 & 0,60 \\
+        \hline
+        \rowcolor{rowcolor}
+        62,00 & 30,0 & 0,45 \\
+        \hline
+    \end{tabular}
+    \caption{Tensión sobre la resistencia y corriente en función de la
+    frecuencia.}
+    \label{tab:mediciones_rlc_serie}
 \end{table}
-Cabe destacar que dichos valores fueron medidos a partir de los multímetros utilizados. 
+Luego a partrir de los valores obtenidos en las mediciones en la Tabla
+\ref{tab:mediciones_rlc_serie} se hizo el grafico de la poligonal en los puntos tomados de la corriente en funcion de las diferentes frecuencias. Este grafico se puede ver en la Figura \ref{fig:corriente_frec}.
 
-A partir de los datos obtenidos y utilizando la siguiente ecuación:
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{poligonal_frecuancias.png}
+\caption{Diagrama poligonal de la corriente en el circuito en funcion de la frecuencia de la fuente.}
+\label{fig:corriente_frec}
+\end{figure}
+
+A partir de los valores medidos se observó que la máxima tensión sobre la
+resistencia fue:
 
 \begin{equation*}
-    \varphi = \cos^{-1}\!\left(\frac{V_R^2 + V_F^2 - V_{ZL}^2}{2V_R V_F}\right)
+    V_{R,\mathrm{máx}}=350\ \mathrm{mV},
 \end{equation*}
 
-Se obtiene que $\varphi=34.38^{\circ}$.
+Por lo tanto, se consideró que la frecuencia de resonancia experimental del
+circuito fue:
 
-También podemos obtener a partir de los datos y del valor de $\varphi$ obtenido tanto la tensión sobre la resistencia interna de la bobina como la tensión sobre la inductancia de la bobina. Dichos valores se obtuvieron a partir de las siguientes fórmulas:
+\begin{equation*}
+    f_0=5{,}7\ \mathrm{kHz}.
+\end{equation*}
 
-\begin{align*}
-  V_L &= V_F \sin(\varphi) \\
-  V_r &= V_F \cos(\varphi) - V_R
-\end{align*}
-
-Obteniéndose así:
+En esta frecuencia, la corriente alcanzó su máximo valor:
 
 \begin{align*}
-    V_L &=  \\
-    V_r &=
+    I_0
+    &=\frac{V_{R,\mathrm{máx}}}{R}=5{,}24\ \mathrm{mA}.
 \end{align*}
 
-\textbf{NO TERMINO DE ENTENDER LA TABLA DEL SHEET Y NO ME CIERRAN LAS CUENTAS}
+Para determinar las frecuencias de corte se calculó el valor de tensión
+correspondiente a los puntos de media potencia:
 
+\begin{align*}
+    V_{R,\mathrm{corte}}
+    &=\frac{V_{R,\mathrm{máx}}}{\sqrt{2}}=247{,}5\ \mathrm{mV}.
+\end{align*}
 
+Experimentalmente para encontrar las frecuencias de corte, $f_1$ y $f_2$, se vio que hubo una tensión aproximada de $248\ \mathrm{mV}$ en
+las frecuencias:
 
+\begin{align*}
+    f_1 &=3{,}77\ \mathrm{kHz},\\
+    f_2 &=8{,}00\ \mathrm{kHz}.
+\end{align*}
 
+El ancho de banda del circuito se calculó como:
+
+\begin{align*}
+    BW
+    &=f_2-f_1=4{,}23\ \mathrm{kHz}.
+\end{align*}
+
+El factor de calidad experimental se obtuvo mediante:
+
+\begin{align*}
+    Q_{\mathrm{exp}}
+    &=\frac{f_0}{BW}=1{,}35.
+\end{align*}
+
+Finalmente, al ser $C$ un dato el valor de la inductancia puede calcularse a partir de la
+condición de resonancia:
+
+\begin{equation}
+    f_0=\frac{1}{2\pi\sqrt{LC}}
+\end{equation}
+
+de donde:
+
+\begin{equation}
+    L=\frac{1}{(2\pi f_0)^2C}=3,54 \mu F
+    \label{eq:inductancia_resonancia}
+\end{equation}
+
+En resumen los valores obtenidos a partir del experimento se pueden ver el cuadro \ref{tab:resultados_rlc_serie}.
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabular}{|c|c|}
+        \hline
+        \rowcolor{headercolor}
+        \textcolor{white}{\textbf{Magnitud}} &
+        \textcolor{white}{\textbf{Valor experimental}} \\
+        \hline
+        \rowcolor{rowcolor}
+         $f_0$ & $5{,}7\ \mathrm{kHz}$ \\
+        \hline
+        $f_1$ & $3{,}77\ \mathrm{kHz}$ \\
+        \hline
+        \rowcolor{rowcolor}
+         $f_2$ & $8{,}00\ \mathrm{kHz}$ \\
+        \hline
+         $BW$ & $4{,}23\ \mathrm{kHz}$ \\
+        \hline
+        \rowcolor{rowcolor}
+        $Q_{\mathrm{exp}}$ & $1{,}35$ \\
+        \hline
+        $I_0$ & $5{,}24\ \mathrm{mA}$ \\
+        \hline
+        \rowcolor{rowcolor}
+        $L$ & $3{,}54 \mu F$ \\
+        \hline
+    \end{tabular}
+    \caption{Resultados principales de la experiencia con el circuito RLC
+    serie.}
+    \label{tab:resultados_rlc_serie}
+\end{table}
 
 \newpage
