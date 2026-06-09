@@ -2,23 +2,38 @@
 \usepackage{graphicx} % Required for inserting images
 \usepackage[spanish]{babel}   % pone todo en español
 \usepackage{hyperref}         % opcional (links clickeables)
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage[table]{xcolor}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{circuitikz}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{fit, backgrounds}
+
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage{array}
+
 
 \begin{document}
 
 \input{Carátula}
 
-\input{resumen}
-
 \tableofcontents
 
 \newpage
 
-\input{introduccion}
+\input{Parte A}
 
-\input{desarrollo}
+\input{Parte B}
 
-\input{conclusiones}
-
-\input{anexos}
+\input{anexo}
 
 \end{document}
