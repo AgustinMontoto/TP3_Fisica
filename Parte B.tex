@@ -1,5 +1,214 @@
-\section{Parte B}
-\subsection{Instrumentos Utilizados}
+\section{Parte A}
+
+\definecolor{headercolor}{HTML}{C2185B}
+\definecolor{rowcolor}{HTML}{FCE4EC}
+
+\title{Prueba}
+\author{Candelaria Grigera}
+\date{April 2026}
+
+\section{Primer Experiencia}
+
+
+\subsection{Instrumentos y componentes utilizados}
+
+\begin{itemize}
+    \item Fuente de tensión alterna $12\ V - 50\ Hz$.
+    \item Resistencia de $68\ \Omega$.
+    \item Bobina de 150 vueltas con resistencia desconocida.
+    \item Multímetros digitales
+    \item Cables banana-banana para el conexionado.
+\end{itemize}
+
 \subsection{Circuito implementado}
-\subsection{oObjetivos}
+
+El circuito implementado para la primera experiencia fue el presentado en la fig. \ref{fig:circuito1}
+
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}[american, scale=1.0, transform shape]
+  
+    \coordinate (A) at (0, 0);
+    \coordinate (B) at (3, 0);
+    \coordinate (G) at (8, 0);
+    \coordinate (D) at (10, 0);
+    \coordinate (E) at (10, -3);
+    \coordinate (F) at (0, -3);
+   
+    \draw (A) to[R, l=$R$] (B);
+    \draw (B) to[L, l=$L$] (5, 0);
+    \draw (5,0) to[R, l=$r$] (G);
+    \draw (G) to[rmeter, t=A] (D);
+   
+    \draw (E) -- (12,-3);
+    \draw (12,-3) to[sV] (12,0);
+    \node[right=4pt] at (12.5,-1.3) {$12\,\text{V}$};
+    \node[right=4pt] at (12.5,-1.8) {$50\,\text{Hz}$};
+    \draw (12,0) -- (D);
+   
+    \draw (F) -- (E);
+    \draw (A) -- (F);
+   
+    \fill (B) circle (2.5pt);
+    \fill (G) circle (2.5pt);
+   
+    \coordinate (VtL) at ($(A)+(0,1.6)$);
+    \coordinate (VtR) at ($(G)+(0,1.6)$);
+    \draw[dotted] (A) -- (VtL);
+    \draw[dotted] (G) -- (VtR);
+    \draw[dotted] (VtL) -- (VtR);
+    \node[draw, circle, fill=white, inner sep=4pt] at ($(VtL)!0.5!(VtR)$) {V};
+   
+    \coordinate (VRL) at ($(A)+(0,-1.6)$);
+    \coordinate (VRR) at ($(B)+(0,-1.6)$);
+    \draw[dotted] (A) -- (VRL);
+    \draw[dotted] (B) -- (VRR);
+    \draw[dotted] (VRL) -- (VRR);
+    \node[draw, circle, fill=white, inner sep=4pt] at ($(VRL)!0.5!(VRR)$) {$V_R$};
+   
+    \coordinate (VZLL) at ($(B)+(0,-1.6)$);
+    \coordinate (VZLR) at ($(G)+(0,-1.6)$);
+    \draw[dotted] (B) -- (VZLL);
+    \draw[dotted] (G) -- (VZLR);
+    \draw[dotted] (VZLL) -- (VZLR);
+    \node[draw, circle, fill=white, inner sep=4pt] at ($(VZLL)!0.5!(VZLR)$) {$V_{ZL}$};
+   
+    \draw[dashed] (2.5,-0.7) rectangle (8.5,0.7);
+    \node[above] at (5.5,0.7) {$Z_L$};
+
+  \end{circuitikz}
+  \caption{Circuito 1}
+  \label{fig:circuito1}
+\end{figure}
+
+\subsection{Objetivos}
+
+Determinar de manera experimental la resistencia interna y la inductancia de la bobina proporcionada por la cátedra.
+
+\subsubsection{Datos Obtenidos}
+
+Los datos que se obtuvieron a partir de la medición fueron los presentados en la tabla \ref{tab:mediciones1}
+
+\begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.4}
+  \setlength{\arrayrulewidth}{0.5pt}
+  \resizebox{\columnwidth}{!}{%
+  \begin{tabular}{|
+    >{\centering\arraybackslash}m{1.5cm}|
+    >{\centering\arraybackslash}m{1.5cm}|
+    >{\centering\arraybackslash}m{1.5cm}|
+    >{\centering\arraybackslash}m{1.8cm}|
+    >{\centering\arraybackslash}m{1.8cm}|
+    >{\centering\arraybackslash}m{1.8cm}|
+  }
+  \hline
+  \rowcolor{headercolor}
+  \textcolor{white}{\textbf{$I$ [mA]}} &
+  \textcolor{white}{\textbf{$V_f$ [V]}} &
+  \textcolor{white}{\textbf{$V_R$ [V]}} &
+  \textcolor{white}{\textbf{$V_{ZL}$ [V]}} &
+  \textcolor{white}{\textbf{$R$ [$\Omega$]}} &
+  \textcolor{white}{\textbf{$r$ [$\Omega$]}} &
+  \hline
+  \rowcolor{rowcolor}
+  107 & 12,1 & 5,1 & 8,4 & 52 & 48 \\
+  \hline
+  \end{tabular}}
+  \caption{Mediciones experiencia 1}
+  \label{tab:mediciones1}
+\end{table}
+Cabe destacar que dichos valores fueron medidos a partir de los multímetros utilizados. 
+
+A partir de los datos obtenidos y utilizando la siguiente ecuación:
+
+\begin{equation*}
+    \varphi = \cos^{-1}\!\left(\frac{V_R^2 + V_F^2 - V_{ZL}^2}{2V_R V_F}\right)
+\end{equation*}
+
+Se obtiene que $\varphi=34.38^{\circ}$.
+
+Tomando en cuenta el siguiente diagrama fasorial de tensiones se pueden desarrollar todas las fórmulas interesantes para esta experiencia.
+
+\begin{figure}[h]
+\centering
+\[
+\begin{tikzpicture}[scale=1.2]
+
+% Coordenadas
+\coordinate (O) at (0,0);
+\coordinate (A) at (3,0);
+\coordinate (B) at (6,0);
+\coordinate (C) at (6,4);
+
+% Eje de corriente
+\draw[->, thick, teal] (0,0) -- (8,0) node[right] {$I$};
+
+% VR
+\draw[->, thick] (O) -- (A);
+\node[below] at (1.5,0) {$\vec{v_R}$};
+
+% VXL
+\draw[->, thick, blue] (A) -- (B);
+\node[below, blue] at (4.5,0) {$\vec{v_{XL}}$};
+
+% VL
+\draw[->, thick, blue] (B) -- (C);
+\node[right, blue] at (6,2) {$\vec{v_L}$};
+
+% VZL
+\draw[->, thick] (A) -- (C);
+\node[left] at (4.7,2.2) {$\vec{V}_{ZL}$};
+
+% VS
+\draw[->, thick] (O) -- (C);
+\node[left] at (2.7,2.5) {$\vec{V}_{S}$};
+
+% Angulo phi
+\draw (1.2,0) arc (0:34:1.2);
+\node at (1.6,0.45) {$\varphi$};
+
+\end{tikzpicture}
+\]
+\caption{Diagrama fasorial de tensiones.}
+\end{figure}
+
+También podemos obtener a partir de los datos y del valor de $\varphi$ obtenido tanto la tensión sobre la resistencia interna de la bobina como la tensión sobre la inductancia de la bobina. Dichos valores se obtuvieron a partir de las siguientes fórmulas:
+
+\begin{align*}
+  V_L &= V_F \sin(\varphi) \\
+  V_r &= V_F \cos(\varphi) - V_R
+\end{align*}
+
+Obteniéndose así:
+
+\begin{align*}
+    V_L &=  6,83 V\\
+    V_r &= 4,89V
+\end{align*}
+
+Teniendo en cuenta estos resultados se puede despejar una expresión para la resistencia de la bobina:
+
+\begin{align*}
+    r &=  \frac{V_R}{I}\\
+\end{align*}
+
+Con los datos relevados se obtuvo:
+
+\begin{align*}
+    r &=  47,88 \Omega \\
+\end{align*}
+
+En adición, se midió la resistencia de la bobina utilizando un multímetro y la lectura resultó ser de  $48 \Omega$. Se puede concluir que el resultado exerimental resulta coherente con la medición. \\
+
+Por otro lado, se ha calculado la inductancia de la bobina tomando en cuenta la siguiente expresión: 
+
+\begin{align*}
+    L &=  \frac{V_L}{2\pi\cdot f \cdot  I} \\
+\end{align*}
+
+Dando como resultado:
+\begin{align*}
+    L &=  203 mH \\
+\end{align*}
 \newpage
